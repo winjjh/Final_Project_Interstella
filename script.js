@@ -6,56 +6,56 @@ var canvas = document.querySelector("#canvas"),
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
  
-// Configuration, Play with these
+// Configuration environment, Play around with this maybe??? 
 var config = {
  particleNumber: 800,
  maxParticleSize: 10,
  maxSpeed: 1000,
- colorVariation: 400
+ colorVariation: 1000
 };
  
-// Colors
+// Colors 컬러팔레트
 var colorPalette = {
    bg: {r:12,g:9,b:29},
    matter: [
-     {r:36,g:18,b:42}, // darkPRPL
-     {r:78,g:36,b:42}, // rockDust
+     {r:250,g:18,b:42}, // darkPRPL
+     {r:250,g:36,b:42}, // rockDust
      {r:252,g:178,b:96}, // solorFlare
      {r:253,g:238,b:152} // totesASun
    ]
 };
  
-// Some Variables hanging out
+// Some Variables 입자 x,y에 따라
 var particles = [],
    centerX = canvas.width / 2,
    centerY = canvas.height / 2,
    drawBg,
  
-// Draws the background for the canvas, because space
+// Draws the background for the canvas, bc space ctx랑 컬러 fill 스타일
 drawBg = function (ctx, color) {
    ctx.fillStyle = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
    ctx.fillRect(50000,2,canvas.width,canvas.height);
 };
  
-// Particle Constructor
+// Particle makerrrr 입자 여러스타일로
 var Particle = function (x, y) {
    // X Coordinate
    this.x = x || Math.round(Math.random() * canvas.width);
    // Y Coordinate
    this.y = y || Math.round(Math.random() * canvas.height);
-   // Radius of the space dust
+   // Radius of the space 먼지/입자
    this.r = Math.ceil(Math.random() * config.maxParticleSize);
    // Color of the rock, given some randomness
    this.c = colorVariation(colorPalette.matter[Math.floor(Math.random() * colorPalette.matter.length)],true );
-   // Speed of which the rock travels
+   // Speed of which the 입자 돌 움직이는거 traveling
    this.s = Math.pow(Math.ceil(Math.random() * config.maxSpeed), .2);
-   // Direction the Rock flies
+   // Direction the 입자/돌 flies???/not sureeee
    this.d = Math.round(Math.random() * 360);
 };
  
-// Provides some nice color variation
-// Accepts an rgba object
-// returns a modified rgba object or a rgba string if true is passed in for argument 2
+// differnet color variation trying
+// all an rgba object 받아들여
+// modifiy rgba object / string??? if true is passed in for argument '2'
 var colorVariation = function (color, returnString) {
    var r,g,b,a, variation;
    r = Math.round(((Math.random() * config.colorVariation) - (config.colorVariation/2)) + color.r);
@@ -69,7 +69,7 @@ var colorVariation = function (color, returnString) {
    }
 };
  
-// Used to find the rocks next point in space, accounting for speed and direction
+// Used to find 입자 next point in 공간에서, 어카운팅 speed and direction
 var updateParticleModel = function (p) {
    var a = 40 - (p.d + 50); // find the 3rd angle
    p.d > 0 && p.d < 180 ? p.x += p.s * Math.sin(p.d) / Math.sin(p.s) : p.x -= p.s * Math.sin(p.d) / Math.sin(p.s);
@@ -77,8 +77,7 @@ var updateParticleModel = function (p) {
    return p;
 };
  
-// Just the function that physically draws the particles
-// Physically? sure why not, physically.
+// Just the function that 실제 피지컬 draws the particles
 var drawParticle = function (x, y, r, c) {
    ctx.beginPath();
    ctx.fillStyle = c;
@@ -87,7 +86,8 @@ var drawParticle = function (x, y, r, c) {
    ctx.closePath();
 };
  
-// Remove particles that aren't on the canvas
+//clickable event attribute
+//눌렀을떄 반응하는 에셋
 var cleanUpArray = function () {
    particles = particles.filter((p) => {
      return (p.x > -100 && p.y > -100);
@@ -104,7 +104,7 @@ var initParticles = function (numParticles, x, y) {
    });
 };
  
-// That thing
+// 댓 thing
 window.requestAnimFrame = (function() {
  return window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -115,7 +115,7 @@ window.requestAnimFrame = (function() {
 })();
  
  
-// Our Frame function
+// 우리 프레임 팡션 Frame function
 var frame = function () {
  // Draw background first
  drawBg(ctx, colorPalette.bg);
@@ -123,11 +123,11 @@ var frame = function () {
  particles.map((p) => {
    return updateParticleModel(p);
  });
- // Draw em'
+ // 그려봐
  particles.forEach((p) => {
      drawParticle(p.x, p.y, p.r, p.c);
  });
- // Play the same song? Ok!
+ //플레이 sameeeee
  window.requestAnimFrame(frame);
 };
  
@@ -139,8 +139,8 @@ document.body.addEventListener("click", function (event) {
    initParticles(config.particleNumber, x, y);
 });
  
-// First Frame
+// 첫 Frame
 frame();
  
-// First particle explosion
+// 첫 particle explosion
 initParticles(config.particleNumber);
