@@ -8,9 +8,9 @@ canvas.height = window.innerHeight;
  
 // Configuration environment, Play around with this maybe??? 
 var config = {
- particleNumber: 800,
+ particleNumber: 500,
  maxParticleSize: 10,
- maxSpeed: 1000,
+ maxSpeed: 500,
  colorVariation: 1000
 };
  
@@ -124,9 +124,12 @@ var frame = function () {
    return updateParticleModel(p);
  });
  // 그려봐
- particles.forEach((p) => {
-     drawParticle(p.x, p.y, p.r, p.c);
- });
+//  particles.forEach((p) => {
+//     drawParticle(p.x, p.y, p.r, p.c);
+//  });
+var particleX = Math.floor(Math.random()*800);
+var particleY = Math.floor(Math.random()*800);
+initParticles(config.particleNumber,particleX,particleY);
  //플레이 sameeeee
  window.requestAnimFrame(frame);
 };
@@ -138,9 +141,10 @@ document.body.addEventListener("click", function (event) {
    cleanUpArray();
    initParticles(config.particleNumber, x, y);
 });
- 
+
 // 첫 Frame
 frame();
  
 // 첫 particle explosion
-initParticles(config.particleNumber);
+
+//console.log(initParticles(config.particleNumber,0,0))
