@@ -11,6 +11,19 @@ h2 {
     margin-top: -40px;
 }
 
+h1 {
+    color: red;
+    font-size: 50px;
+    padding: 10px;
+}
+
+h2 {
+    color: red;
+    font-size: 27px;
+    margin-left: 35px;
+    margin-top: -40px;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -50,7 +63,7 @@ a:active { text-decoration: none;
   
   li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
