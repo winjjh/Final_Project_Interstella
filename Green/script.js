@@ -58,6 +58,15 @@ var Particle = function (x, y) {
 // modifiy rgba object / string??? if true is passed in for argument '2'
 var colorVariation = function (color, returnString) {
    var r,g,b,a, variation;
+   r = Math.round(((Math.random() * config.colorVariation) - (config.colorVariation)) + color.r);
+   g = Math.round(((Math.random() * config.colorVariation) - (config.colorVariation/2)) + color.g);
+   b = Math.round(((Math.random() * config.colorVariation) - (config.colorVariation/2)) + color.b);
+   a = Math.random() + .5;
+   if (returnString) {
+       return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+   } else {
+       return {r,g,b,a};
+   }
 };
  
 // Used to find 입자 next point in 공간에서, 어카운팅 speed and direction
